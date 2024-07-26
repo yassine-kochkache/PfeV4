@@ -18,11 +18,17 @@ agent any
       }
     }
      
- stage("MAVEN BUILD") {
-      steps {
-       sh 'composer install'
-      }
-   }
+  stage('Build Backend') {
+            steps {
+                script {
+                    docker.image('php:8.0-cli').inside {
+                        sh 'composer install'
+                        sh 'php artisan migrate'
+                        sh 'php artisan db:seed'
+                    }
+                }
+            }
+        }
           
         
     }
