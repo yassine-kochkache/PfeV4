@@ -18,7 +18,11 @@ agent any
       }
     }
      
-
+ stage("MAVEN BUILD") {
+      steps {
+       sh 'mvn clean install -Dmaven.test.skip=true'
+      }
+   }
           
         
     }
