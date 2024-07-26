@@ -40,7 +40,7 @@ agent any
                         rm composer-setup.php
                         ./composer --version
                         export COMPOSER_HOME=./.composer
-                        composer install
+                        ../composer install
                         php artisan migrate
                         php artisan db:seed
                         '''
