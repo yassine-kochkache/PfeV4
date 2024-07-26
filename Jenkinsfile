@@ -2,6 +2,11 @@ pipeline {
 agent any
     
 
+    environment {
+       
+        NODEJS_VERSION = 'nodejs-lts' // Define NodeJS version
+        COMPOSER_HOME = './.composer' // Define Composer home directory
+    }
 
     stages {
          stage('Checkout') {
@@ -23,7 +28,7 @@ agent any
                 script {
                     docker.image('php:8.0-cli').inside {
                         sh '''
-                       EXPECTED_SIGNATURE=$(curl -s https://composer.github.io/installer.sig)
+                      EXPECTED_SIGNATURE=$(curl -s https://composer.github.io/installer.sig)
                         php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
                         ACTUAL_SIGNATURE=$(php -r "echo hash_file('sha384', 'composer-setup.php');")
                         if [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ]; then
@@ -34,6 +39,7 @@ agent any
                         php composer-setup.php --install-dir=. --filename=composer
                         rm composer-setup.php
                         ./composer --version
+                        export COMPOSER_HOME=./.composer
                         composer install
                         php artisan migrate
                         php artisan db:seed
