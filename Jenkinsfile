@@ -9,7 +9,7 @@ agent any
         SONARQUBE_ENV = 'laravel-react-survey-main'
     }
      tools {
-        sonarQubeScanner 'SonarQube Scanner1'
+        sonarQubeScanner 'SonarQube Scanner'
     }
 
     stages {
