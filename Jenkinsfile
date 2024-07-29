@@ -25,23 +25,16 @@ agent any
       }
     }
    
-   stage("Nexus") {
-     steps {
-       sh 'mvn  deploy -DskipTests'
-      }
-    }
-   
-     
-    stage('SonarQube Analysis') {
+    stage('Build React') {
             steps {
-                withSonarQubeEnv('laravel-react-survey-main') {
+                dir('react') {
                     script {
-                        sh 'sonar-scanner'
+                        sh 'npm install'
+                        sh 'npm run build'
                     }
                 }
             }
         }
-        
           
         
     }
