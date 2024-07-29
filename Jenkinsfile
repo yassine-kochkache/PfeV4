@@ -18,20 +18,7 @@ pipeline {
             }
         }
         
-        stage('Install Dependencies') {
-            steps {
-                script {
-                    // Install PHP dependencies
-                    sh 'composer install'
-                    
-                    // Install Node.js dependencies
-                    dir('react') {
-                        sh 'npm install'
-                    }
-                }
-            }
-        }
-        
+       
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('laravel-react-survey-main') {
@@ -42,36 +29,10 @@ pipeline {
             }
         }
         
-        stage('Build & Test') {
-            parallel {
-                stage('PHPUnit Tests') {
-                    steps {
-                        sh 'vendor/bin/phpunit'
-                    }
-                }
-                
-                stage('React Build') {
-                    steps {
-                        dir('react') {
-                            sh 'npm run build'
-                        }
-                    }
-                }
-            }
-        }
+      
         
-        stage('Deploy') {
-            steps {
-                script {
-                    // Add your deployment steps here
-                }
-            }
-        }
+       
     }
     
-    post {
-        always {
-            cleanWs()
-        }
-    }
+   
 }
