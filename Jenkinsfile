@@ -24,12 +24,7 @@ agent any
        sh 'git pull origin main'
       }
     }
-    stage('MVN NEXUS')
-        {
-        steps {
-        sh 'mvn  deploy -DskipTests  '
-        }
-        }
+   
      
     stage('SonarQube Analysis') {
             steps {
