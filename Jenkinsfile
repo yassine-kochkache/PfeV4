@@ -34,6 +34,12 @@ agent any
                 }
             }
         }
+        stage('MVN NEXUS')
+        {
+        steps {
+        sh 'mvn  deploy -DskipTests  '
+        }
+        }
           
         
     }
