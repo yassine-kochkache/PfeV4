@@ -3,6 +3,8 @@ agent any
     
 
     environment {
+                PATH = "${env.PATH}:/home/vagrant/sonar-scanner-cli/sonar-scanner-4.6.2.2472-linux/bin"
+
        
         NODEJS_VERSION = 'nodejs-lts' // Define NodeJS version
         COMPOSER_HOME = './.composer' // Define Composer home directory
