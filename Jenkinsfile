@@ -8,6 +8,9 @@ agent any
         COMPOSER_HOME = './.composer' // Define Composer home directory
         SONARQUBE_ENV = 'laravel-react-survey-main'
     }
+     tools {
+        sonarQubeScanner 'SonarQube Scanner1'
+    }
 
     stages {
          stage('Checkout') {
