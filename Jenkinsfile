@@ -30,7 +30,6 @@ agent any
                 dir('react') {
                     script {
                         sh 'npm install'
-                        sh 'npm run build'
                     }
                 }
             }
