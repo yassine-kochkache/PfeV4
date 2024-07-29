@@ -1,33 +1,38 @@
 pipeline {
-agent any
+    agent any
     
-
     environment {
-       
-        NODEJS_VERSION = 'nodejs-lts' // Define NodeJS version
-        COMPOSER_HOME = './.composer' // Define Composer home directory
+        NODEJS_VERSION = 'nodejs-lts'
+        COMPOSER_HOME = './.composer'
         SONARQUBE_ENV = 'laravel-react-survey-main'
     }
-     tools {
-        sonarQubeScanner 'SonarQube Scanner'
+    
+    tools {
+        sonarQubeScanner 'SonarQube Scanner1'
     }
-
+    
     stages {
-         stage('Checkout') {
+        stage('Checkout') {
             steps {
-                git url: "https://github.com/yassine-kochkache/PfeV4.git", branch: 'main'
+                git url: 'https://github.com/yassine-kochkache/PfeV4.git', branch: 'main'
             }
         }
-       
         
-               stage("GIT") {
-     steps {
-       sh 'git checkout main'
-       sh 'git pull origin main'
-      }
-    }
-     
-    stage('SonarQube Analysis') {
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    // Install PHP dependencies
+                    sh 'composer install'
+                    
+                    // Install Node.js dependencies
+                    dir('react') {
+                        sh 'npm install'
+                    }
+                }
+            }
+        }
+        
+        stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('laravel-react-survey-main') {
                     script {
@@ -36,8 +41,37 @@ agent any
                 }
             }
         }
-          
         
+        stage('Build & Test') {
+            parallel {
+                stage('PHPUnit Tests') {
+                    steps {
+                        sh 'vendor/bin/phpunit'
+                    }
+                }
+                
+                stage('React Build') {
+                    steps {
+                        dir('react') {
+                            sh 'npm run build'
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                script {
+                    // Add your deployment steps here
+                }
+            }
+        }
     }
     
+    post {
+        always {
+            cleanWs()
+        }
+    }
 }
