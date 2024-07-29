@@ -24,6 +24,15 @@ agent any
        sh 'git pull origin main'
       }
     }
+    stage('Build Laravel') {
+            steps {
+                    script {
+                        sh 'composer install'
+                        // Additional build steps if needed
+                    
+                }
+            }
+        }
    
     stage('Build React') {
             steps {
@@ -34,6 +43,7 @@ agent any
                 }
             }
         }
+         
           
         
     }
