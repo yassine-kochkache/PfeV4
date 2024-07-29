@@ -43,6 +43,16 @@ agent any
                 }
             }
         }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('laravel-react-survey-main') {
+                    script {
+                        sh 'sonar-scanner'
+                    }
+                }
+            }
+        }
          
           
         
