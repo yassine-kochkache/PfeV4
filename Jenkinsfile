@@ -6,6 +6,7 @@ agent any
        
         NODEJS_VERSION = 'nodejs-lts' // Define NodeJS version
         COMPOSER_HOME = './.composer' // Define Composer home directory
+        SONARQUBE_ENV = 'laravel-react-survey-main'
     }
 
     stages {
@@ -23,7 +24,15 @@ agent any
       }
     }
      
-   
+    stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('laravel-react-survey-main') {
+                    script {
+                        sh 'sonar-scanner'
+                    }
+                }
+            }
+        }
           
         
     }
