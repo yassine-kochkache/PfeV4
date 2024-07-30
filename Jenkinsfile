@@ -58,11 +58,11 @@ agent any
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('laravel-react-survey-main') {
-                    script {
-                        sh 'sudo /home/vagrant/sonar-scanner-cli/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner'
-                    }
-                }
+               sonar-scanner \
+  -Dsonar.projectKey=sonartesttest \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=http://192.168.56.2:9000 \
+  -Dsonar.token=sqp_c20fdc4389adf1a4c90e75b11188887d7b0daab8
             }
         }
          
