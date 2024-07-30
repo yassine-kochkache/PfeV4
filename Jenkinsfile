@@ -54,11 +54,12 @@ agent any
                 }
             }
         }
+
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('laravel-react-survey-main') {
                     script {
-                        sh 'sonar-scanner'
+                        sh 'sudo /home/vagrant/sonar-scanner-cli/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner'
                     }
                 }
             }
