@@ -65,6 +65,7 @@ agent any
                     -Dsonar.sources=. \
                     -Dsonar.host.url=http://192.168.56.2:9000 \
                     -Dsonar.login=sqp_c20fdc4389adf1a4c90e75b11188887d7b0daab8
+                    
             '''
         }
     }
