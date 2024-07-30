@@ -48,9 +48,9 @@ agent any
   stage('Prepare SonarQube') {
             steps {
                 script {
-                    // Change ownership and permissions
-                    sh 'sudo chown -R jenkins:jenkins /home/vagrant/sonar-scanner-cli/'
-                    sh 'sudo chmod -R 755 /home/vagrant/sonar-scanner-cli/'
+                    // Change ownership and permissions without requiring password
+                    sh 'sudo chown -R jenkins:jenkins /home/vagrant/sonar-scanner-cli'
+                    sh 'sudo chmod -R 755 /home/vagrant/sonar-scanner-cli'
                 }
             }
         }
