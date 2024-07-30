@@ -71,6 +71,18 @@ agent any
     }
 }
 
+ stage('Install Dependencies') {
+            steps {
+                script {
+                    // Installer les utilitaires nécessaires
+                    sh '''
+                        if ! command -v zip &> /dev/null; then
+                            sudo apt-get update && sudo apt-get install -y zip
+                        fi
+                    '''
+                }
+            }
+        }
 
   stage('Publish to Nexus') {
             steps {
