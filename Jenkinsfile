@@ -58,7 +58,7 @@ agent any
 
        stage('SonarQube Analysis') {
     steps {
-        withSonarQubeEnv('sonartesttest') { // Nom de votre configuration SonarQube
+        withSonarQubeEnv('laravel-react-survey-main') { // Nom de votre configuration SonarQube
             sh '''
                 sonar-scanner \
                     -Dsonar.projectKey=sonartesttest \
