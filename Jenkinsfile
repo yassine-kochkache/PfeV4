@@ -56,16 +56,19 @@ agent any
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-               sonar-scanner \
-  -Dsonar.projectKey=sonartesttest \
-  -Dsonar.sources=. \
-  -Dsonar.host.url=http://192.168.56.2:9000 \
-  -Dsonar.token=sqp_c20fdc4389adf1a4c90e75b11188887d7b0daab8
-            }
+       stage('SonarQube Analysis') {
+    steps {
+        withSonarQubeEnv('laravel-react-survey-main') { // Nom de votre configuration SonarQube
+            sh '''
+                sonar-scanner \
+                    -Dsonar.projectKey=sonartesttest \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=http://192.168.56.2:9000 \
+                    -Dsonar.login=sqp_c20fdc4389adf1a4c90e75b11188887d7b0daab8
+            '''
         }
-         
+    }
+}
           
         
     }
