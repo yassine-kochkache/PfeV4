@@ -45,6 +45,12 @@ agent any
                 }
             }
         }
+        stage('SonarQubeee Analysis') {
+    def scannerHome = tool 'SonarScanner';
+    withSonarQubeEnv() {
+      sh "${scannerHome}/bin/sonar-scanner"
+    }
+  }
   stage('Prepare SonarQube') {
             steps {
                 script {
