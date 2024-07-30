@@ -70,6 +70,27 @@ agent any
         }
     }
 }
+
+
+  stage('Publish to Nexus') {
+            steps {
+                script {
+                    // Publier les artefacts Composer
+                    sh '''
+                        zip -r laravel_backend.zip .
+                        curl -u admin:azerty123 --upload-file laravel_backend.zip http://192.168.56.2:8081/
+                    '''
+                    
+                    // Publier les artefacts npm
+                    dir('react') {
+                        sh '''
+                            tar -czvf react_frontend.tar.gz .
+                            curl -u admin:azerty123 --upload-file react_frontend.tar.gz http://192.168.56.2:8081/
+                        '''
+                    }
+                }
+            }
+        }
           
         
     }
