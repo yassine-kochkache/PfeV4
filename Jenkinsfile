@@ -11,12 +11,10 @@ agent any
         SONARQUBE_ENV = 'laravel-react-survey-main'
         DOCKER_USERNAME = 'yassine987'
         DOCKER_PASSWORD = 'azerty123'
-    }
-    
 
 
 
-        // Laravel environment variables
+         // Laravel environment variables
         APP_NAME = 'Laravel'
         APP_ENV = 'local'
         APP_KEY = 'base64:4P8KiJpS77dmjoVBqvYmXma13F43BcIqQdh4T05YaHk='
@@ -36,6 +34,12 @@ agent any
         MAIL_ENCRYPTION = 'tls'
         MAIL_FROM_ADDRESS = 'yassine.kochkache@esprit.tn'
         MAIL_FROM_NAME = 'Laravel'
+    }
+    
+
+
+
+       
 
 
     stages {
