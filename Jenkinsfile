@@ -9,6 +9,8 @@ agent any
         NODEJS_VERSION = 'nodejs-lts' // Define NodeJS version
         COMPOSER_HOME = './.composer' // Define Composer home directory
         SONARQUBE_ENV = 'laravel-react-survey-main'
+        DOCKER_USERNAME = 'yassine987'
+        DOCKER_PASSWORD = 'azerty123'
     }
     
 
@@ -45,6 +47,40 @@ agent any
                 }
             }
         }
+
+
+stage('Docker Login') {
+            steps {
+                script {
+                    sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                }
+            }
+        }
+
+        stage('Docker Build and Push') {
+            steps {
+                script {
+                    // Build Laravel backend container
+                    sh 'docker-compose -f docker-compose.yml build laravel-app'
+                    
+                    // Build React frontend container
+                    sh 'docker-compose -f docker-compose.yml build frontend'
+                    
+                   
+                }
+            }
+        }
+
+        stage('Docker Compose Up') {
+            steps {
+                script {
+                    // Start Laravel and React containers
+                    sh 'docker-compose -f docker-compose.yml up -d'
+                }
+            }
+        }
+
+
         
   stage('Prepare SonarQube') {
             steps {
