@@ -14,6 +14,30 @@ agent any
     }
     
 
+
+
+        // Laravel environment variables
+        APP_NAME = 'Laravel'
+        APP_ENV = 'local'
+        APP_KEY = 'base64:4P8KiJpS77dmjoVBqvYmXma13F43BcIqQdh4T05YaHk='
+        APP_DEBUG = 'true'
+        APP_URL = 'http://localhost'
+        DB_CONNECTION = 'mysql'
+        DB_HOST = 'host.docker.internal'
+        DB_PORT = '3306'
+        DB_DATABASE = 'pfeversion004'
+        DB_USERNAME = 'root'
+        DB_PASSWORD = ''
+        MAIL_MAILER = 'smtp'
+        MAIL_HOST = 'sandbox.smtp.mailtrap.io'
+        MAIL_PORT = '2525'
+        MAIL_USERNAME = '323cc5c83ecf30'
+        MAIL_PASSWORD = 'cec68743f42d98'
+        MAIL_ENCRYPTION = 'tls'
+        MAIL_FROM_ADDRESS = 'yassine.kochkache@esprit.tn'
+        MAIL_FROM_NAME = 'Laravel'
+
+
     stages {
          stage('Checkout') {
             steps {
@@ -67,6 +91,15 @@ stage('Docker Login') {
                     sh 'docker-compose -f docker-compose.yml build frontend'
                     
                    
+                }
+            }
+        }
+
+         stage('Clean Up Existing Containers') {
+            steps {
+                script {
+                    sh 'docker rm -f laravel-app || true'
+                    sh 'docker rm -f react-app || true'
                 }
             }
         }
