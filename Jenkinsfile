@@ -11,6 +11,7 @@ agent any
         SONARQUBE_ENV = 'laravel-react-survey-main'
         DOCKER_USERNAME = 'yassine987'
         DOCKER_PASSWORD = 'azerty123'
+         DOCKER_HUB_REPOSITORY = 'yassine987'  // Assurez-vous de mettre votre nom de dépôt correct
 
 
 
@@ -85,7 +86,7 @@ stage('Docker Login') {
             }
         }
 
-        stage('Docker Build and Push') {
+         stage('Docker Build and Push') {
             steps {
                 script {
                     // Build Laravel backend container
@@ -94,7 +95,13 @@ stage('Docker Login') {
                     // Build React frontend container
                     sh 'docker-compose -f docker-compose.yml build frontend'
                     
-                   
+                    // Tag and push Laravel image
+                    sh "docker tag laravel-app:latest ${DOCKER_HUB_REPOSITORY}/laravel-app:latest"
+                    sh "docker push ${DOCKER_HUB_REPOSITORY}/laravel-app:latest"
+                    
+                    // Tag and push React image
+                    sh "docker tag react-app:latest ${DOCKER_HUB_REPOSITORY}/react-app:latest"
+                    sh "docker push ${DOCKER_HUB_REPOSITORY}/react-app:latest"
                 }
             }
         }
