@@ -76,6 +76,31 @@ agent any
                 }
             }
         }
+        stage('Prepare SonarQube') {
+            steps {
+                script {
+                    // Change ownership and permissions without requiring password
+                    sh 'sudo chown -R jenkins:jenkins /home/vagrant/sonar-scanner-cli'
+                    sh 'sudo chmod -R 755 /home/vagrant/sonar-scanner-cli'
+                }
+            }
+        }
+
+       stage('SonarQube Analysis') {
+    steps {
+        withSonarQubeEnv('laravel-react-survey-main') { // Nom de votre configuration SonarQube
+            sh '''
+                sonar-scanner \
+                    -Dsonar.projectKey=sonartesttest \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=http://192.168.56.2:9000 \
+                    -Dsonar.login=sqp_c20fdc4389adf1a4c90e75b11188887d7b0daab8
+                    
+            '''
+        }
+    }
+}
+
 
 
 stage('Docker Login') {
@@ -126,31 +151,7 @@ stage('Docker Login') {
 
 
         
-  stage('Prepare SonarQube') {
-            steps {
-                script {
-                    // Change ownership and permissions without requiring password
-                    sh 'sudo chown -R jenkins:jenkins /home/vagrant/sonar-scanner-cli'
-                    sh 'sudo chmod -R 755 /home/vagrant/sonar-scanner-cli'
-                }
-            }
-        }
-
-       stage('SonarQube Analysis') {
-    steps {
-        withSonarQubeEnv('laravel-react-survey-main') { // Nom de votre configuration SonarQube
-            sh '''
-                sonar-scanner \
-                    -Dsonar.projectKey=sonartesttest \
-                    -Dsonar.sources=. \
-                    -Dsonar.host.url=http://192.168.56.2:9000 \
-                    -Dsonar.login=sqp_c20fdc4389adf1a4c90e75b11188887d7b0daab8
-                    
-            '''
-        }
-    }
-}
-
+  
           
         
     }
