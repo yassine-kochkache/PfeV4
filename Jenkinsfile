@@ -120,13 +120,7 @@ stage('Docker Login') {
                     // Build React frontend container
                     sh 'docker-compose -f docker-compose.yml build frontend'
                     
-                    // Tag and push Laravel image
-                   // sh "docker tag laravel-app ${DOCKER_HUB_REPOSITORY}/laravel-app"
-                    sh "docker push ${DOCKER_HUB_REPOSITORY}/laravel-app"
-                    
-                    // Tag and push React image
-                   // sh "docker tag react-app ${DOCKER_HUB_REPOSITORY}/react-app"
-                    sh "docker push ${DOCKER_HUB_REPOSITORY}/react-app"
+                   
                 }
             }
         }
